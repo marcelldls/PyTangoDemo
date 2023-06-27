@@ -12,9 +12,10 @@ parser.add_argument('--nodb',
                 )
 args = parser.parse_args()
 
+# Start device server: python <Server_file>.py <instance name>
 if args.nodb:
-    os.system('echo nodb')
-    os.system('python <server_file>.py <instance_name> -nodb -port 10000')
+    print('Start device server without database')
+    os.system('python tango_classes/MyTestDevice.py test --nodb --dlist nodb/TestDevice/0 --port 10000')
 elif ~args.nodb:
-    os.system('echo db')
-    os.system('python <server_file>.py <instance_name>')
+    print('Start device server')
+    os.system('python tango_classes/MyTestDevice.py test')
