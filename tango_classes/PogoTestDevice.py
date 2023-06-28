@@ -6,7 +6,7 @@
 #  license :
 # ============================================================================
 #
-#  File :        MyTestDevice.py
+#  File :        PogoTestDevice.py
 #
 #  Project :     PyTango
 #
@@ -38,58 +38,58 @@
 #     (Program Obviously used to Generate tango Object)
 # ############################################################################
 
-__all__ = ["MyTestDevice", "MyTestDeviceClass", "main"]
+__all__ = ["PogoTestDevice", "PogoTestDeviceClass", "main"]
 
 __docformat__ = 'restructuredtext'
 
 import PyTango
 import sys
 # Add additional import
-#----- PROTECTED REGION ID(MyTestDevice.additionnal_import) ENABLED START -----#
+#----- PROTECTED REGION ID(PogoTestDevice.additionnal_import) ENABLED START -----#
 
-#----- PROTECTED REGION END -----#	//	MyTestDevice.additionnal_import
+#----- PROTECTED REGION END -----#	//	PogoTestDevice.additionnal_import
 
 # Device States Description
 # No states for this device
 
 
-class MyTestDevice (PyTango.Device_4Impl):
-    """A Test Device used for evaluating PyTango"""
+class PogoTestDevice (PyTango.Device_4Impl):
+    """A Test Device used for evaluating Pogo"""
     
     # -------- Add you global variables here --------------------------
-    #----- PROTECTED REGION ID(MyTestDevice.global_variables) ENABLED START -----#
+    #----- PROTECTED REGION ID(PogoTestDevice.global_variables) ENABLED START -----#
     
-    #----- PROTECTED REGION END -----#	//	MyTestDevice.global_variables
+    #----- PROTECTED REGION END -----#	//	PogoTestDevice.global_variables
 
     def __init__(self, cl, name):
         PyTango.Device_4Impl.__init__(self,cl,name)
         self.debug_stream("In __init__()")
-        MyTestDevice.init_device(self)
-        #----- PROTECTED REGION ID(MyTestDevice.__init__) ENABLED START -----#
+        PogoTestDevice.init_device(self)
+        #----- PROTECTED REGION ID(PogoTestDevice.__init__) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.__init__
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.__init__
         
     def delete_device(self):
         self.debug_stream("In delete_device()")
-        #----- PROTECTED REGION ID(MyTestDevice.delete_device) ENABLED START -----#
+        #----- PROTECTED REGION ID(PogoTestDevice.delete_device) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.delete_device
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.delete_device
 
     def init_device(self):
         self.debug_stream("In init_device()")
         self.get_device_properties(self.get_device_class())
-        #----- PROTECTED REGION ID(MyTestDevice.init_device) ENABLED START -----#
+        #----- PROTECTED REGION ID(PogoTestDevice.init_device) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.init_device
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.init_device
 
     def always_executed_hook(self):
         self.debug_stream("In always_excuted_hook()")
-        #----- PROTECTED REGION ID(MyTestDevice.always_executed_hook) ENABLED START -----#
+        #----- PROTECTED REGION ID(PogoTestDevice.always_executed_hook) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.always_executed_hook
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.always_executed_hook
 
     # -------------------------------------------------------------------------
-    #    MyTestDevice read/write attribute methods
+    #    PogoTestDevice read/write attribute methods
     # -------------------------------------------------------------------------
     
     
@@ -97,25 +97,25 @@ class MyTestDevice (PyTango.Device_4Impl):
             
     def read_attr_hardware(self, data):
         self.debug_stream("In read_attr_hardware()")
-        #----- PROTECTED REGION ID(MyTestDevice.read_attr_hardware) ENABLED START -----#
+        #----- PROTECTED REGION ID(PogoTestDevice.read_attr_hardware) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.read_attr_hardware
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.read_attr_hardware
 
 
     # -------------------------------------------------------------------------
-    #    MyTestDevice command methods
+    #    PogoTestDevice command methods
     # -------------------------------------------------------------------------
     
 
-    #----- PROTECTED REGION ID(MyTestDevice.programmer_methods) ENABLED START -----#
+    #----- PROTECTED REGION ID(PogoTestDevice.programmer_methods) ENABLED START -----#
     
-    #----- PROTECTED REGION END -----#	//	MyTestDevice.programmer_methods
+    #----- PROTECTED REGION END -----#	//	PogoTestDevice.programmer_methods
 
-class MyTestDeviceClass(PyTango.DeviceClass):
+class PogoTestDeviceClass(PyTango.DeviceClass):
     # -------- Add you global class variables here --------------------------
-    #----- PROTECTED REGION ID(MyTestDevice.global_class_variables) ENABLED START -----#
+    #----- PROTECTED REGION ID(PogoTestDevice.global_class_variables) ENABLED START -----#
     
-    #----- PROTECTED REGION END -----#	//	MyTestDevice.global_class_variables
+    #----- PROTECTED REGION END -----#	//	PogoTestDevice.global_class_variables
 
 
     #    Class Properties
@@ -141,10 +141,10 @@ class MyTestDeviceClass(PyTango.DeviceClass):
 def main():
     try:
         py = PyTango.Util(sys.argv)
-        py.add_class(MyTestDeviceClass, MyTestDevice, 'MyTestDevice')
-        #----- PROTECTED REGION ID(MyTestDevice.add_classes) ENABLED START -----#
+        py.add_class(PogoTestDeviceClass, PogoTestDevice, 'PogoTestDevice')
+        #----- PROTECTED REGION ID(PogoTestDevice.add_classes) ENABLED START -----#
         
-        #----- PROTECTED REGION END -----#	//	MyTestDevice.add_classes
+        #----- PROTECTED REGION END -----#	//	PogoTestDevice.add_classes
 
         U = PyTango.Util.instance()
         U.server_init()
