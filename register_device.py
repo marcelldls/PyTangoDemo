@@ -1,10 +1,10 @@
 """Register a device on a Tango database"""
 
 from __future__ import print_function
-import tango
 import json
+import tango
 
-with open("config.json") as config_file:
+with open("config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     cl_path = config["device_class_path"]
     dsr_name = config["device_server_name"]
