@@ -1,5 +1,6 @@
 """Command line tool to start a Tango Device Server"""
 from __future__ import print_function
+from builtins import open
 import argparse
 import os
 import json

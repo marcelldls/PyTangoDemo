@@ -1,5 +1,6 @@
 """Exploring PyTango"""
 from __future__ import print_function
+from builtins import open
 import json
 import tango
 

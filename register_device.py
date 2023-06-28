@@ -1,6 +1,7 @@
 """Register a device on a Tango database"""
 
 from __future__ import print_function
+from builtins import open
 import json
 import tango
 
