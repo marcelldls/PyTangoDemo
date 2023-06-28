@@ -1,10 +1,11 @@
-"""Register a device on a Tango database"""
+"""Register a device on a Tango database by command line"""
 
 from __future__ import print_function
 from builtins import open
 import json
 import tango
 
+# Process config file
 with open("config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     cl_path = config["device_class_path"]

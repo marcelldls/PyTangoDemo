@@ -5,12 +5,7 @@ import argparse
 import os
 import json
 
-with open("config.json", "r", encoding="utf-8") as config_file:
-    config = json.load(config_file)
-    cl_path = config["device_class_path"]
-    dsr_name = config["device_server_name"]
-    dev_name = config["device_name"]
-
+# Process command line arguments
 parser = argparse.ArgumentParser(
                             description="Starts a Tango Device Server"
                             )
@@ -19,6 +14,13 @@ parser.add_argument("--nodb",
                 action="store_true"
                 )
 args = parser.parse_args()
+
+# Process config file
+with open("config.json", "r", encoding="utf-8") as config_file:
+    config = json.load(config_file)
+    cl_path = config["device_class_path"]
+    dsr_name = config["device_server_name"]
+    dev_name = config["device_name"]
 
 # Start device server: python <Server_file>.py <instance name>
 COMMAND = "python " + cl_path + " test"
