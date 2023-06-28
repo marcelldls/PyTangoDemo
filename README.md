@@ -4,7 +4,7 @@ Based off:
 - https://tango-controls.readthedocs.io/en/latest/tutorials-and-howtos/how-tos/how-to-pytango.html
 
 ## Preconditions
-- A running Tango system (TangoBox 9.3 used here)
+- A running Tango system (TangoBox 9.3 used here) if you want to use the static database. Otherwise use --nodb argument.
 
 ## Procedure
 - Register Tango Device on the Tango database (On first time)
