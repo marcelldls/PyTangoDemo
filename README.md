@@ -1,5 +1,7 @@
 # PyTangoDemo
-Based off https://pytango.readthedocs.io/en/stable/howto.html
+Based off:
+- https://pytango.readthedocs.io/en/stable/howto.html
+- https://tango-controls.readthedocs.io/en/latest/tutorials-and-howtos/how-tos/how-to-pytango.html
 
 ## Preconditions
 - A running Tango system (TangoBox 9.3 used here)
@@ -9,4 +11,4 @@ Based off https://pytango.readthedocs.io/en/stable/howto.html
 - Start associated Tango Device Server
 
 ## Additional
-- Device class has been made using Pogo
+- A device class has also been made using Pogo
