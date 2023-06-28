@@ -7,8 +7,9 @@ Based off:
 - A running Tango system (TangoBox 9.3 used here)
 
 ## Procedure
-- Register Tango Device on the Tango database
-- Start associated Tango Device Server
+- Register Tango Device on the Tango database (On first time)
+- Run the associated Tango Device Server
+- Execute the client
 
 ## Additional
 - A device class has also been made using Pogo
