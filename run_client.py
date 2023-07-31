@@ -39,8 +39,16 @@ elif args.test:
     print(dev_name)
 
 # Do client things
-print(tango.__version__)
-print(tango.ApiUtil.get_env_var("TANGO_HOST"))
+print("Tango version:", tango.__version__)
+print("TANGO Database address:", tango.ApiUtil.get_env_var("TANGO_HOST"))
 
 test_device = tango.DeviceProxy(dev_name)
 print("Ping device:", test_device.ping(), "us")
+print("The device state is:", test_device.state())
+print("Defined attributes:", test_device.get_attribute_list())
+print("Defined commands:", test_device.get_command_list())
+
+if args.nodb or args.test:
+    print("Defined properties:", "Unavailable for no database server")
+else:
+    print("Defined properties:", test_device.get_command_list())
