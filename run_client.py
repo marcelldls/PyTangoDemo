@@ -18,6 +18,11 @@ parser.add_argument(
     help="Connect to a test device server (no database)",
     action="store_true"
 )
+parser.add_argument(
+    "--add",
+    help="Additional complexity that needs implementation to work",
+    action="store_true"
+)
 args = parser.parse_args()
 
 # Process config file
@@ -52,3 +57,8 @@ if args.nodb or args.test:
     print("Defined properties:", "Unavailable for no database server")
 else:
     print("Defined properties:", test_device.get_command_list())
+
+if args.add:
+    print("")
+    print("Enable additional complexity - Do something crazy")
+    print("Read voltage:", test_device.voltage)
