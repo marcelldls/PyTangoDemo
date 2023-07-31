@@ -1,0 +1,12 @@
+[[source]]
+url = "https://pypiserver.diamond.ac.uk"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pytango = "==9.4.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
