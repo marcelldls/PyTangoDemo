@@ -1,7 +1,7 @@
 from time import sleep
 from tango.server import Device, attribute, command
 
-class PowerSupply(Device):
+class PytangoTestDevice(Device):
 
     """
     Instead of Device, could use Device_4Impl or Device_5Impl
@@ -17,4 +17,4 @@ class PowerSupply(Device):
         sleep(0.1)
 
 if __name__ == '__main__':
-    PowerSupply.run_server()
+    PytangoTestDevice.run_server()

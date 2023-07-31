@@ -14,6 +14,10 @@ parser.add_argument("--nodb",
                 help="Connect to a device server without a database",
                 action="store_true"
                 )
+parser.add_argument("--test",
+                help="Connect to a test device server (no database)",
+                action="store_true"
+                )
 args = parser.parse_args()
 
 # Process config file
@@ -27,6 +31,12 @@ if args.nodb:
     hostname = socket.gethostname() + ":8888/"
     nodb_name = "nodb/" + dev_name[dev_name.find('/')+1:]
     dev_name = hostname + nodb_name + "#dbase=no"
+elif args.test:
+    ADDRESS = "tango://127.0.0.1:8888"
+    class_name = cl_path[cl_path.find("/")+1:-3]
+    test_name = "/test/nodb/" + class_name
+    dev_name = ADDRESS + test_name + "#dbase=no"
+    print(dev_name)
 
 # Do client things
 print(tango.__version__)
