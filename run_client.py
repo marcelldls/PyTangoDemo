@@ -56,7 +56,7 @@ print("Defined commands:", test_device.get_command_list())
 if args.nodb or args.test:
     print("Defined properties:", "Unavailable for no database server")
 else:
-    print("Defined properties:", test_device.get_command_list())
+    print("Defined properties:", test_device.get_property_list("*"))
 
 if args.add:
     print("")
