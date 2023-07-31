@@ -14,7 +14,7 @@ with open("config.json", "r", encoding="utf-8") as config_file:
 
 dev_info = tango.DbDevInfo()
 dev_info.server = dsr_name  # Device server instance name (Device factory)
-dev_info._class = dsr_name[:dsr_name.find('/')]  # Device server must same name
+dev_info._class = dsr_name[: dsr_name.find("/")]  # Device server: same name!
 dev_info.name = dev_name  # Device instance name
 
 db = tango.Database()

@@ -7,6 +7,15 @@ name = "pypi"
 pytango = "==9.4.1"
 
 [dev-packages]
+pytest-cov = "*"
+flake8 = "*"
+mypy = "*"
+pytest-mock = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+lint = "flake8"
+tests = "python -m pytest --cov -s --cov-branch"

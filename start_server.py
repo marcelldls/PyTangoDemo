@@ -6,17 +6,13 @@ import os
 import json
 
 # Process command line arguments
-parser = argparse.ArgumentParser(
-                            description="Starts a Tango Device Server"
-                            )
-parser.add_argument("--nodb",
-                help="Run device server without a database",
-                action="store_true"
-                )
-parser.add_argument("--test",
-                help="Run test device server (no database)",
-                action="store_true"
-                )
+parser = argparse.ArgumentParser(description="Starts a Tango Device Server")
+parser.add_argument(
+    "--nodb", help="Run device server without a database", action="store_true"
+)
+parser.add_argument(
+    "--test", help="Run test device server (no database)", action="store_true"
+)
 args = parser.parse_args()
 
 # Process config file
@@ -31,14 +27,14 @@ if args.nodb:
     command = "python " + cl_path + " test "
     ADDRESS = "--port 8888 "
     OPTIONS = "--nodb --dlist "
-    nodb_name = "nodb/" + dev_name[dev_name.find('/')+1:] + " "
+    nodb_name = "nodb/" + dev_name[dev_name.find("/") + 1:] + " "
     print("Start no db device server with device:", nodb_name)
     os.system(command + OPTIONS + nodb_name + ADDRESS)
 
 elif args.test:
     COMMAND = "python -m tango.test_context "
-    class_name = cl_path[cl_path.find("/")+1:-3]
-    python_path = cl_path[:cl_path.find("/")] + 2*("." + class_name) + " "
+    class_name = cl_path[cl_path.find("/") + 1: -3]
+    python_path = cl_path[: cl_path.find("/")] + 2 * ("." + class_name) + " "
     ADDRESS = "--host 127.0.0.1 "
     os.system(COMMAND + python_path + ADDRESS)
 

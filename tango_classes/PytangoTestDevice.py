@@ -1,6 +1,7 @@
 from time import sleep
 from tango.server import Device, attribute, command
 
+
 class PytangoTestDevice(Device):
 
     """
@@ -16,5 +17,6 @@ class PytangoTestDevice(Device):
     def calibrate(self):
         sleep(0.1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     PytangoTestDevice.run_server()
