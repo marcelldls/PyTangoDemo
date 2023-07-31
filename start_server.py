@@ -27,7 +27,7 @@ COMMAND = "python " + cl_path + " test"
 if args.nodb:
     nodb_name = "nodb/" + dev_name[dev_name.find('/')+1:]
     print("Start no db device server with device:", nodb_name)
-    os.system(COMMAND + " --nodb --dlist " + nodb_name + " --port 10000")
+    os.system(COMMAND + " --nodb --dlist " + nodb_name + " --port 8888")
 elif ~args.nodb:
     print("Start device server")
     os.system(COMMAND)

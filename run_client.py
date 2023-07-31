@@ -24,7 +24,7 @@ with open("config.json", "r", encoding="utf-8") as config_file:
     dev_name = config["device_name"]
 
 if args.nodb:
-    hostname = socket.gethostname() + ":10000/"
+    hostname = socket.gethostname() + ":8888/"
     nodb_name = "nodb/" + dev_name[dev_name.find('/')+1:]
     dev_name = hostname + nodb_name + "#dbase=no"
 
