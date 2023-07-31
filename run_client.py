@@ -26,7 +26,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 # Process config file
-with open("config.json", "r", encoding="utf-8") as config_file:
+with open("config/config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     cl_path = config["device_class_path"]
     dsr_name = config["device_server_name"]
