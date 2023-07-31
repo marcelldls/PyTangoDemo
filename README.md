@@ -12,4 +12,7 @@ Based off:
 - Execute the client
 
 ## Additional
-- A device class has also been made using Pogo
+- A device class has been made using native PyTango as well as with Pogo
+
+## Open issues
+- test_context (--test argument) seems to be a native PyTango way to execute a no database server but fails to execute a Pogo class (possibly due to python incompatibility 2.7 vs 3.7)
