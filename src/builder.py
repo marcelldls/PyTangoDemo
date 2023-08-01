@@ -1,4 +1,4 @@
-from tango.server import Device, attribute, command
+from tango import server
 from src.util import spin, dummy_measure_func
 
 
@@ -7,7 +7,7 @@ def device_class_builder(attributes=None,
                          properties=None):
 
     print("Building device class...")
-    device_class = add_attributes(Device, attributes)
+    device_class = add_attributes(server.Device, attributes)
     device_class = add_commands(device_class, commands)
     device_class = add_properties(device_class, properties)
 
@@ -17,7 +17,12 @@ def device_class_builder(attributes=None,
 def add_attributes(device, attributes):
 
     class dynamic_class(device):
-        dummy_measure = attribute(dummy_measure_func, dtype=float)
+
+        for attr in attributes:
+            locals()[attr] = server.attribute(
+                attributes[attr]["method"],
+                dtype=attributes[attr]["dtype"]
+                )
 
     print("Added attributes")
 
