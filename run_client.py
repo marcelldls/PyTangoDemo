@@ -62,4 +62,4 @@ else:
 if args.add:
     print("")
     print("Enable additional complexity - Do something crazy")
-    print("Read voltage:", test_device.voltage)
+    print("Read:", test_device.dummy_measure_1)
