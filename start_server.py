@@ -26,32 +26,40 @@ with open("config/config.json", "r", encoding="utf-8") as config_file:
 
 # Start device server: Python <Server_file>.py <instance name>
 if args.nodb:
-    instance_name = "test"
-    OPTIONS = "--nodb --dlist "
-    nodb_name = "nodb/" + dev_name[dev_name.find("/") + 1:] + " "
-    ADDRESS = "--port 8888 "
+    instance_name = ["test"]
+    OPTNS = ["--nodb", "--dlist"]
+    nodb_name = ["nodb/" + dev_name[dev_name.find("/") + 1:]]
+    ADDR = ["--port", "8888"]
+    print("Start no db device server with device:", *nodb_name)
 
     if pathlib.Path(cl_path).suffix == ".obj":
-        command = instance_name + " "
         with open(cl_path, 'rb') as filehandler:
             device_class = pickle.load(filehandler)
-        device_class.run_server((command + OPTIONS + nodb_name + ADDRESS).split())
+        device_class.run_server(instance_name + OPTNS + nodb_name + ADDR)
 
     else:
-        command = "python" + " " + cl_path + " " + instance_name + " "
-        os.system(command + OPTIONS + nodb_name + ADDRESS)
-        print(command + OPTIONS + nodb_name + ADDRESS)
-
-    print("Start no db device server with device:", nodb_name)
+        cmnd = ["python", cl_path]
+        os.system(" ".join(cmnd + instance_name + OPTNS + nodb_name + ADDR))
 
 elif args.test:
-    COMMAND = "python -m tango.test_context "
+    COMMAND = ["python", "-m", "tango.test_context"]
     class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
-    python_path = cl_path[: cl_path.find("/")] + 2 * ("." + class_name) + " "
-    ADDRESS = "--host 127.0.0.1 "
-    os.system(COMMAND + python_path + ADDRESS)
+    python_path = [cl_path[: cl_path.find("/")] + 2 * ("." + class_name)]
+    ADDRESS = ["--host", "127.0.0.1"]
+
+    if pathlib.Path(cl_path).suffix == ".obj":
+        raise NotImplementedError(".obj files not yet supported for --test")
+
+    else:
+        os.system(" ".join(COMMAND + python_path + ADDRESS))
 
 else:
-    command = "python " + cl_path + " test "
+    cmnd = ["python", cl_path]
+    instance_name = ["test"]
     print("Start device server")
-    os.system(command)
+
+    if pathlib.Path(cl_path).suffix == ".obj":
+        raise NotImplementedError(".obj files not yet supported for --test")
+
+    else:
+        os.system(" ".join(cmnd + instance_name))
