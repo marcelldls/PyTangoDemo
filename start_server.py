@@ -4,6 +4,8 @@ from builtins import open
 import argparse
 import os
 import json
+import pickle
+import pathlib
 
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Starts a Tango Device Server")
@@ -24,16 +26,27 @@ with open("config/config.json", "r", encoding="utf-8") as config_file:
 
 # Start device server: Python <Server_file>.py <instance name>
 if args.nodb:
-    command = "python " + cl_path + " test "
-    ADDRESS = "--port 8888 "
+    instance_name = "test"
     OPTIONS = "--nodb --dlist "
     nodb_name = "nodb/" + dev_name[dev_name.find("/") + 1:] + " "
+    ADDRESS = "--port 8888 "
+
+    if pathlib.Path(cl_path).suffix == ".obj":
+        command = instance_name + " "
+        with open(cl_path, 'rb') as filehandler:
+            device_class = pickle.load(filehandler)
+        device_class.run_server((command + OPTIONS + nodb_name + ADDRESS).split())
+
+    else:
+        command = "python" + " " + cl_path + " " + instance_name + " "
+        os.system(command + OPTIONS + nodb_name + ADDRESS)
+        print(command + OPTIONS + nodb_name + ADDRESS)
+
     print("Start no db device server with device:", nodb_name)
-    os.system(command + OPTIONS + nodb_name + ADDRESS)
 
 elif args.test:
     COMMAND = "python -m tango.test_context "
-    class_name = cl_path[cl_path.find("/") + 1: -3]
+    class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
     python_path = cl_path[: cl_path.find("/")] + 2 * ("." + class_name) + " "
     ADDRESS = "--host 127.0.0.1 "
     os.system(COMMAND + python_path + ADDRESS)
