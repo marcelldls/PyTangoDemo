@@ -30,8 +30,16 @@ def add_attributes(device, attributes):
 
 
 def add_commands(device, commands):
+
+    class dynamic_class(device):
+
+        for cmnd in commands:
+            locals()[cmnd] = server.command(
+                commands[cmnd],
+                )
+
     print("Added commands")
-    return device
+    return dynamic_class
 
 
 def add_properties(device, properties):
