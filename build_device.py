@@ -1,17 +1,15 @@
 import pickle
 from src.builder import device_class_builder
-from src.util import spin
+from src.util import spin, dummy_measure_func
 
 attributes = {
-    "remember_bool": {
-        "attribute_type": "Read/Write",
-        "data_type": "Bool",
-        "data_format": "Scalar",
+    "dummy_measure_1": {
+        "method": dummy_measure_func,
+        "dtype": float,
         },
-    "remember_float": {
-        "attribute_type": "Read/Write",
-        "data_type": "Float",
-        "data_format": "Scalar",
+    "dummy_measure_2": {
+        "method": dummy_measure_func,
+        "dtype": float,
         },
 }
 
