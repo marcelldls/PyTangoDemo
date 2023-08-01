@@ -1,4 +1,4 @@
-import pickle 
+import pickle
 from src.builder import device_class_builder
 from src.util import spin
 
@@ -33,10 +33,3 @@ my_dev_class = device_class_builder(**dev_config)
 with open('tango_classes/BuildTestDevice.obj', 'wb') as filehandler:
     pickle.dump(my_dev_class, filehandler)
     print("Sucessfully stored device class")
-
-#####  delete below when before merge ##### 
-
-with open("tango_classes/BuildTestDevice.obj", 'rb') as filehandler:
-    device_class = pickle.load(filehandler)
-
-device_class.run_server(['test', '--nodb', '--dlist', 'nodb/test_device/0', '--port', '8888'])

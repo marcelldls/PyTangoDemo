@@ -58,6 +58,7 @@ if args.nodb or args.test:
 else:
     print("Defined properties:", test_device.get_property_list("*"))
 
+# Do more client things
 if args.add:
     print("")
     print("Enable additional complexity - Do something crazy")
