@@ -9,8 +9,6 @@ def dummy_measure_func(self):
     return 1.23
 
 
-device_type = "BuildTestDevice"
-
 attributes = {
     "dummy_measure_1": {
         "method": dummy_measure_func,
@@ -30,7 +28,6 @@ properties = {
 }
 
 dev_config = {
-    "device_type": device_type,
     "attributes": attributes,
     "commands": commands,
     "properties": properties,
