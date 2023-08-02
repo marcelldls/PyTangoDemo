@@ -20,17 +20,21 @@ args = parser.parse_args()
 # Process config file
 with open("config/config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
+    host = config["host"]
+    port = config["port"]
     dsr_name = config["device_server_name"]
     dev_name = config["device_name"]
     cl_path = config["device_class_path"]
     cl_type = config["device_class_type"]
 
+srvr_instance = [dsr_name[dsr_name.rfind("/")+1:]]
+srvr_addr = ["--host", host, "--port", port]
+
 if args.nodb:
-    instance_name = ["test"]
-    OPTNS = ["--nodb", "--dlist"]
-    nodb_name = ["nodb/" + dev_name[dev_name.find("/") + 1:]]
-    ADDR = ["--port", "8888"]
-    print("Start no db device server with device:", *nodb_name)
+    optn = ["--nodb", "--dlist", dev_name]
+
+    print("Start no db device server:", dsr_name)
+    print("Include device:", dev_name)
 
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
@@ -38,27 +42,25 @@ if args.nodb:
         class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        device_class.run_server(instance_name + OPTNS + nodb_name + ADDR)
+        device_class.run_server(srvr_instance + optn + srvr_addr)
 
     else:
         cmnd = ["python", cl_path]
-        os.system(" ".join(cmnd + instance_name + OPTNS + nodb_name + ADDR))
+        os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
 
 elif args.test:
-    COMMAND = ["python", "-m", "tango.test_context"]
     class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
     python_path = [cl_path[: cl_path.find("/")] + 2 * ("." + class_name)]
-    ADDRESS = ["--host", "127.0.0.1"]
 
     if cl_type == "BuildClass":
         raise NotImplementedError("Dynamically built classes not yet supported here")
 
     else:
-        os.system(" ".join(COMMAND + python_path + ADDRESS))
+        cmnd = ["python", "-m", "tango.test_context"]
+        os.system(" ".join(cmnd + python_path + srvr_addr))
 
 else:
-    # Start device server: Python <Server_file>.py <instance name>
-    instance_name = ["test"]
+    # Start device server: Python <Server_file>.py <server instance name>
     print("Start device server")
 
     if cl_type == "BuildClass":
@@ -67,8 +69,8 @@ else:
         class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        device_class.run_server(instance_name)
+        device_class.run_server(srvr_instance + srvr_addr)
 
     else:
         cmnd = ["python", cl_path]
-        os.system(" ".join(cmnd + instance_name))
+        os.system(" ".join(cmnd + srvr_instance + srvr_addr))
