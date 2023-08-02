@@ -56,12 +56,16 @@ elif args.test:
 
 else:
     # Start device server: Python <Server_file>.py <instance name>
-    cmnd = ["python", cl_path]
+
     instance_name = ["test"]
     print("Start device server")
 
     if cl_type == "BuildClass":
-        raise NotImplementedError("Dynamically built classes not yet supported here")
+        file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
+        exec("from %s import dev_config" % file_loc)
+        device_class = device_class_builder(**dev_config)
+        device_class.run_server(" ".join(instance_name))
 
     else:
+        cmnd = ["python", cl_path]
         os.system(" ".join(cmnd + instance_name))
