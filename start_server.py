@@ -67,7 +67,7 @@ else:
         class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        device_class.run_server(" ".join(instance_name))
+        device_class.run_server(instance_name)
 
     else:
         cmnd = ["python", cl_path]
