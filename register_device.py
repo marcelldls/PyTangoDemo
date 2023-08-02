@@ -20,4 +20,4 @@ dev_info.name = dev_name  # Device instance name
 db = tango.Database()
 db.add_device(dev_info)
 
-print("Registered:", dev_info.name)
+print("Registered Device:", dev_info.name, "- On device server:", dev_info.server)
