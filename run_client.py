@@ -36,6 +36,7 @@ if args.nodb:
     hostname = socket.gethostname() + ":8888/"
     nodb_name = "nodb/" + dev_name[dev_name.find("/") + 1:]
     dev_name = hostname + nodb_name + "#dbase=no"
+
 elif args.test:
     ADDRESS = "tango://127.0.0.1:8888"
     class_name = cl_path[cl_path.find("/") + 1: -3]
@@ -43,10 +44,11 @@ elif args.test:
     dev_name = ADDRESS + test_name + "#dbase=no"
     print(dev_name)
 
-# Do client things
+# Use PyTango
 print("Tango version:", tango.__version__)
 print("TANGO Database address:", tango.ApiUtil.get_env_var("TANGO_HOST"))
 
+# Do client things
 test_device = tango.DeviceProxy(dev_name)
 print("Ping device:", test_device.ping(), "us")
 print("The device state is:", test_device.state())

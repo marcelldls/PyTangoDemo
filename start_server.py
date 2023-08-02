@@ -4,8 +4,8 @@ from builtins import open
 import argparse
 import os
 import json
-import pickle
-import pathlib
+from src.builder import device_class_builder
+
 
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Starts a Tango Device Server")
@@ -20,11 +20,11 @@ args = parser.parse_args()
 # Process config file
 with open("config/config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
-    cl_path = config["device_class_path"]
     dsr_name = config["device_server_name"]
     dev_name = config["device_name"]
+    cl_path = config["device_class_path"]
+    cl_type = config["device_class_type"]
 
-# Start device server: Python <Server_file>.py <instance name>
 if args.nodb:
     instance_name = ["test"]
     OPTNS = ["--nodb", "--dlist"]
@@ -32,9 +32,10 @@ if args.nodb:
     ADDR = ["--port", "8888"]
     print("Start no db device server with device:", *nodb_name)
 
-    if pathlib.Path(cl_path).suffix == ".obj":
-        with open(cl_path, 'rb') as filehandler:
-            device_class = pickle.load(filehandler)
+    if cl_type == "BuildClass":
+        file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
+        exec("from %s import dev_config" % file_loc)
+        device_class = device_class_builder(**dev_config)
         device_class.run_server(instance_name + OPTNS + nodb_name + ADDR)
 
     else:
@@ -47,19 +48,20 @@ elif args.test:
     python_path = [cl_path[: cl_path.find("/")] + 2 * ("." + class_name)]
     ADDRESS = ["--host", "127.0.0.1"]
 
-    if pathlib.Path(cl_path).suffix == ".obj":
-        raise NotImplementedError(".obj files not yet supported for --test")
+    if cl_type == "BuildClass":
+        raise NotImplementedError("Dynamically built classes not yet supported here")
 
     else:
         os.system(" ".join(COMMAND + python_path + ADDRESS))
 
 else:
+    # Start device server: Python <Server_file>.py <instance name>
     cmnd = ["python", cl_path]
     instance_name = ["test"]
     print("Start device server")
 
-    if pathlib.Path(cl_path).suffix == ".obj":
-        raise NotImplementedError(".obj files not yet supported for --test")
+    if cl_type == "BuildClass":
+        raise NotImplementedError("Dynamically built classes not yet supported here")
 
     else:
         os.system(" ".join(cmnd + instance_name))

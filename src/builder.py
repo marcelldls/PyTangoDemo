@@ -1,12 +1,11 @@
 from tango import server
-from src.util import spin, dummy_measure_func
 
 
 def device_class_builder(attributes=None,
                          commands=None,
                          properties=None):
 
-    print("Building device class...")
+    print("Dynamically building device class...")
     device_class = add_attributes(server.Device, attributes)
     device_class = add_commands(device_class, commands)
     device_class = add_properties(device_class, properties)
