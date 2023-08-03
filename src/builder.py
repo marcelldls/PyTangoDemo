@@ -26,4 +26,6 @@ def device_class_builder(device_type=None,
 
     dynamic_class = type(device_type, (server.Device,), class_body)
 
+    print("Created device class:", dynamic_class.__name__)
+
     return dynamic_class
