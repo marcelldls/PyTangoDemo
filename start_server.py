@@ -4,6 +4,7 @@ from builtins import open
 import argparse
 import os
 import json
+import importlib
 from src.builder import device_class_builder
 
 
@@ -38,7 +39,7 @@ if args.nodb:
 
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
-        exec("from %s import dev_config" % file_loc)
+        dev_config = getattr(importlib.import_module(file_loc), "dev_config")
         class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
@@ -65,7 +66,7 @@ else:
 
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
-        exec("from %s import dev_config" % file_loc)
+        dev_config = getattr(importlib.import_module(file_loc), "dev_config")
         class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
