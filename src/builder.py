@@ -8,23 +8,22 @@ def device_class_builder(device_type=None,
 
     print("Dynamically building device class...")
 
-    class dynamic_class(server.Device):
+    class_body = {}
+    for attr in attributes:
+        class_body[attr] = server.attribute(
+            attributes[attr]["method"],
+            dtype=attributes[attr]["dtype"],
+            )
+    print("Processed attributes")
 
-        for attr in attributes:
-            locals()[attr] = server.attribute(
-                attributes[attr]["method"],
-                dtype=attributes[attr]["dtype"]
-                )
-        print("Added attributes")
+    for cmnd in commands:
+        class_body[cmnd] = server.command(
+            commands[cmnd],
+            )
+    print("Processed commands")
 
-        for cmnd in commands:
-            locals()[cmnd] = server.command(
-                commands[cmnd],
-                )
-        print("Added commands")
+    print("Skipped properties")
 
-        print("Skipped properties")
-
-    dynamic_class.__name__ = device_type
+    dynamic_class = type(device_type, (server.Device,), class_body)
 
     return dynamic_class
