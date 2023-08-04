@@ -31,11 +31,12 @@ with open("config/config.json", "r", encoding="utf-8") as config_file:
 srvr_instance = [dsr_name[dsr_name.rfind("/")+1:]]
 srvr_addr = ["--host", host, "--port", port]
 
+
 if args.nodb:
+    print("Starting device:",
+          "tango://" + host + ":" + port + "/" + dev_name + "#dbase=no")
     optn = ["--nodb", "--dlist", dev_name]
 
-    print("Start no db device server:", dsr_name)
-    print("Include device:", dev_name)
 
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
@@ -62,7 +63,8 @@ elif args.test:
 
 else:
     # Start device server: Python <Server_file>.py <server instance name>
-    print("Start device server")
+    print("Starting device:",
+          "tango://" + host + ":" + port + "/" + dsr_name + "/" + dev_name)
 
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
