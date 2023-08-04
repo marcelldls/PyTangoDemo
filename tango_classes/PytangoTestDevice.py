@@ -40,11 +40,16 @@ class PytangoTestDevice(Device):
     def set_current(self, current):
         print("Current set to %f" % current)
 
+
+    actions = attribute(
+        label="action", dtype=int,
+        )
+
     # Methods
 
     def init_device(self):
 
-        self.set_change_event("polled_value", True, True)
+        self.set_change_event("action", True, True)
 
     # Commands
 
