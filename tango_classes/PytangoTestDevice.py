@@ -12,9 +12,9 @@ class PytangoTestDevice(Device):
     """
 
     # Properties
-
-    device_prop = device_property(dtype=str)
+        
     class_prop = class_property(dtype=int, default_value=42)
+    device_prop = device_property(dtype=str)
 
     # Atttributes in two ways
 
@@ -39,6 +39,12 @@ class PytangoTestDevice(Device):
 
     def set_current(self, current):
         print("Current set to %f" % current)
+
+    # Methods
+
+    def init_device(self):
+
+        self.set_change_event("polled_value", True, True)
 
     # Commands
 
