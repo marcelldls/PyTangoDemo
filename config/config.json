@@ -6,12 +6,13 @@
     "#device_name": "test/pogo_device/0",
     "#device_class_path": "tango_classes/PogoTestDevice.py",
     "#device_class_type": "PogoClass",
-    "%device_server_name": "PytangoTestDevice/test", 
-    "%device_name": "test/pytango_device/0",
-    "%device_class_path": "tango_classes/PytangoTestDevice.py",
-    "%device_class_type": "PyTangoClass",
-    "device_server_name": "BuildTestDevice/test", 
-    "device_name": "test/build_device/0",
-    "device_class_path": "tango_classes/BuildTestDevice.py",
-    "device_class_type": "BuildClass"
+    "device_server_name": "PytangoTestDevice/test", 
+    "device_name": "test/pytango_device/0",
+    "device_class_path": "tango_classes/PytangoTestDevice.py",
+    "device_class_type": "PyTangoClass",
+    "properties_file": "database/pytango_device_0.pty",
+    "£device_server_name": "BuildTestDevice/test", 
+    "£device_name": "test/build_device/0",
+    "£device_class_path": "tango_classes/BuildTestDevice.py",
+    "£device_class_type": "BuildClass"
 }
