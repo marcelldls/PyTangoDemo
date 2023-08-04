@@ -13,8 +13,8 @@ class PytangoTestDevice(Device):
 
     # Properties
 
-    host = device_property(dtype=str)
-    port = class_property(dtype=int, default_value=9788)
+    device_prop = device_property(dtype=str)
+    class_prop = class_property(dtype=int, default_value=42)
 
     # Atttributes in two ways
 
@@ -43,8 +43,13 @@ class PytangoTestDevice(Device):
     # Commands
 
     @command
-    def calibrate(self):
+    def calibrate_1(self):
         sleep(0.1)
+
+    def calibrate_2(self):
+        sleep(0.1)
+
+    calibrate_2 = command(calibrate_2)
 
     # Pipes
 
