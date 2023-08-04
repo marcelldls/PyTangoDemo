@@ -53,7 +53,9 @@ print("Connect to:", dev_name)
 test_device = tango.DeviceProxy(dev_name)
 print("Ping device:", test_device.ping(), "us")
 print("The device state is:", test_device.state())
-print("Defined attributes:", test_device.get_attribute_list())
+attributes = test_device.get_attribute_list()
+print("Defined attributes:", attributes)
+print("Attribute values:", [test_device.read_attribute(att).value for att in attributes])
 print("Defined commands:", test_device.get_command_list())
 
 if args.nodb or args.test:
