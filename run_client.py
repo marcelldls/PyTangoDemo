@@ -57,9 +57,10 @@ print("Defined attributes:", test_device.get_attribute_list())
 print("Defined commands:", test_device.get_command_list())
 
 if args.nodb or args.test:
-    print("Defined properties:", "Unavailable for no database server")
+    print("Defined device properties:", "Unavailable for no database server")
 else:
-    print("Defined properties:", test_device.get_property_list("*"))
+    print("Defined device properties:", test_device.get_property_list("*"))
+    test_device.get_property_list("*")
 
 # Do more client things
 if args.add:
