@@ -1,15 +1,2 @@
-PytangoTestDevice/test/PytangoTestDevice/PytangoTestDevice: "test/pytango_device/0"
-
-#############################################
-# CLASS PytangoTestDevice
-
-
-# CLASS PytangoTestDevice attribute properties
-
-test/pytango_device/0->class_prop: 13
-
-# DEVICE test/pytango_device/0 properties 
-
 test/pytango_device/0->device_prop: "\"device_string\""
-
-CLASS/PytangoTestDevice->InheritedFrom:   Device
+CLASS/PytangoTestDevice->class_prop: 13
