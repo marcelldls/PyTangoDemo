@@ -1,6 +1,4 @@
 """Command line Tango Device Client"""
-from __future__ import print_function
-from builtins import open
 import argparse
 import json
 import tango
