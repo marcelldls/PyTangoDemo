@@ -22,6 +22,7 @@ class PytangoTestDevice(Device):
     def voltage(self):
         return 1.23
 
+    """
     current = attribute(
         label="Current", dtype=float,
         display_level=DispLevel.EXPERT,
@@ -33,13 +34,14 @@ class PytangoTestDevice(Device):
         fget="get_current", fset="set_current",
         doc="the power supply current"
         )
-
+    
     def get_current(self):
         return 2.3456, time(), AttrQuality.ATTR_WARNING
 
     def set_current(self, current):
         print("Current set to %f" % current)
 
+    """
     # Commands
 
     @command
