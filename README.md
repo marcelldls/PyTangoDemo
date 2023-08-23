@@ -3,9 +3,9 @@ Based off:
 - https://pytango.readthedocs.io/en/stable/howto.html
 - https://tango-controls.readthedocs.io/en/latest/tutorials-and-howtos/how-tos/how-to-pytango.html
 
-## Procedure to interact with a new device
-- Create a new Tango control system by running `podman-compose up'
-- Register Tango Device on the Tango database (Needed on first time only)
+## Creating and interact with a device
+- Have a running a Tango control system (vscode task: `local_tangocs`)
+- Register Tango Device on the Tango database (This only has to be done once)
 - Run the associated Tango Device Server
 - Execute the client
 
