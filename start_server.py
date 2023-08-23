@@ -11,6 +11,10 @@ from src.builder import device_class_builder
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Starts a Tango Device Server")
 parser.add_argument(
+    "deviceConfig",
+    help="Specify a device configuration",
+)
+parser.add_argument(
     "--nodb", help="Run device server without a database", action="store_true"
 )
 parser.add_argument(
@@ -19,7 +23,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 # Process config file
-with open("config/config.json", "r", encoding="utf-8") as config_file:
+with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     host = config["host"]
     port = config["port"]

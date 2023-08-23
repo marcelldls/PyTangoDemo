@@ -9,6 +9,8 @@ Based off:
 - Run the associated Tango Device Server
 - Execute the client
 
+Can use the vscode launch configuration `Local TangoCS: Current File`
+
 ### Troubleshooting
 Interaction with the database can be validated using the containerised Jive GUI application 
 ```
@@ -22,7 +24,7 @@ The following device classes are included:
 - A skeleton device made using Pogo
 - A programatically built device class using PyTango framework has also been implemented (default).
 
-Selection is done by removing the special characters in the config file.
+Selection is done by specifying the config file.
 
 ## Open issues
 - test_context (--test argument) seems to be a native PyTango way to execute a no database server but fails to execute a Pogo class (possibly due to python incompatibility 2.7 vs 3.7). Not yet clear why to use this over a --nodb option but I added it.

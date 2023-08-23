@@ -8,6 +8,10 @@ import tango
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Run a Tango Client")
 parser.add_argument(
+    "deviceConfig",
+    help="Specify a device configuration",
+)
+parser.add_argument(
     "--nodb",
     help="Connect to a device server without a database",
     action="store_true"
@@ -25,7 +29,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 # Process config file
-with open("config/config.json", "r", encoding="utf-8") as config_file:
+with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     host = config["host"]
     port = config["port"]

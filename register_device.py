@@ -2,11 +2,19 @@
 
 from __future__ import print_function
 from builtins import open
+import argparse
 import json
 import tango
 
+parser = argparse.ArgumentParser(description="Register a Tango Device")
+parser.add_argument(
+    "deviceConfig",
+    help="Specify a device configuration",
+)
+args = parser.parse_args()
+
 # Process config file
-with open("config/config.json", "r", encoding="utf-8") as config_file:
+with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
     cl_path = config["device_class_path"]
     dsr_name = config["device_server_name"]
