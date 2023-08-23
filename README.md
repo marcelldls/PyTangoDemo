@@ -3,20 +3,24 @@ Based off:
 - https://pytango.readthedocs.io/en/stable/howto.html
 - https://tango-controls.readthedocs.io/en/latest/tutorials-and-howtos/how-tos/how-to-pytango.html
 
-## Preconditions
-- A running Tango system (TangoBox 9.3 virtual machine used here) if you want to use the static database. Otherwise use --nodb argument.
-
 ## Procedure to interact with a new device
-- Register Tango Device on the Tango database (Needed on first time only - validate with "Jive" application)
+- Create a new Tango control system by running `podman-compose up'
+- Register Tango Device on the Tango database (Needed on first time only)
 - Run the associated Tango Device Server
 - Execute the client
+
+### Troubleshooting
+Interaction with the database can be validated using the containerised Jive GUI application 
+```
+docker pull andygotz/tango-jive:7.19
+docker run -ti --rm -e DISPLAY=$DISPLAY -e TANGO_HOST=$TANGO_HOST -v /tmp/.X11-unix:/tmp/.X11-unix --net=host andygotz/tango-jive:7.19
+```
 
 ## Types of device classes
 The following device classes are included:
 - A native PyTango device
 - A skeleton device made using Pogo
 - A programatically built device class using PyTango framework has also been implemented (default).
-
 
 Selection is done by removing the special characters in the config file.
 
