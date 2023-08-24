@@ -4,5 +4,11 @@
     "device_server_name": "BuildTestDevice/test", 
     "device_name": "test/build_device/0",
     "device_class_path": "tango_classes/BuildTestDevice.py",
-    "device_class_type": "BuildClass"
+    "device_class_type": "BuildClass",
+    "device_properties": {
+        "device_prop": "42"
+    },
+    "class_properties": {
+        "class_prop": "21"
+    }
 }

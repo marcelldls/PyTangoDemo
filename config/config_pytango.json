@@ -4,5 +4,11 @@
     "device_server_name": "PytangoTestDevice/test", 
     "device_name": "test/pytango_device/0",
     "device_class_path": "tango_classes/PytangoTestDevice.py",
-    "device_class_type": "PyTangoClass"
+    "device_class_type": "PyTangoClass",
+    "device_properties": {
+        "device_prop": "42"
+    },
+    "class_properties": {
+        "class_prop": "21"
+    }
 }
