@@ -6,7 +6,7 @@
         {
             "label": "local_tangocs",
             "type": "shell",
-            "command": "export TANGO_HOST=localhost:10000 && docker-compose up || docker-compose down"
+            "command": "export TANGO_HOST=localhost:10000 && podman-compose up || podman-compose down"
         }
     ]
 }
