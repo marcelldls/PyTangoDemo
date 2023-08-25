@@ -14,8 +14,8 @@ Can use the vscode launch configuration `Local TangoCS: Current File`
 ### Troubleshooting
 Interaction with the database can be validated using the containerised Jive GUI application 
 ```
-docker pull andygotz/tango-jive:7.19
-docker run -ti --rm -e DISPLAY=$DISPLAY -e TANGO_HOST=$TANGO_HOST -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt label=type:container_runtime_t --net=host andygotz/tango-jive:7.19
+podman pull andygotz/tango-jive:7.19
+podman run -ti --rm -e DISPLAY=$DISPLAY -e TANGO_HOST=$TANGO_HOST -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt label=type:container_runtime_t --net=host andygotz/tango-jive:7.19
 ```
 
 ## Types of device classes
