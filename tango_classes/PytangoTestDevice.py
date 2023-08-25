@@ -11,6 +11,11 @@ class PytangoTestDevice(Device):
     Device preferred as it will always use the latest version.
     """
 
+    def init_device(self):
+        Device.init_device(self)
+        self.__current = 0.0
+        self.set_state(DevState.STANDBY)
+
     # Properties
 
     device_prop = device_property(dtype=str)
@@ -22,27 +27,32 @@ class PytangoTestDevice(Device):
     def voltage(self):
         return 1.23
 
-    """
     current = attribute(
-        label="Current", dtype=float,
+        label="Current",
+        dtype=float,
         display_level=DispLevel.EXPERT,
         access=AttrWriteType.READ_WRITE,
-        unit="A", format="8.4f",
-        min_value=0.0, max_value=8.5,
-        min_alarm=0.1, max_alarm=8.4,
-        min_warning=0.5, max_warning=8.0,
-        fget="get_current", fset="set_current",
-        doc="the power supply current"
-        )
+        unit="A",
+        format="8.4f",
+        min_value=0.0,
+        max_value=8.5,
+        min_alarm=0.1,
+        max_alarm=8.4,
+        min_warning=0.5,
+        max_warning=8.0,
+        fget="get_current",
+        fset="set_current",
+        doc="the power supply current",
+    )
     
     def get_current(self):
-        return 2.3456, time(), AttrQuality.ATTR_WARNING
+        return self.__current
 
     def set_current(self, current):
-        print("Current set to %f" % current)
+        # should set the power supply current
+        self.__current = current
 
-    """
-    # Commands
+    # Commands in two ways
 
     @command
     def calibrate_1(self):
