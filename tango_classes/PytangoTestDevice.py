@@ -43,9 +43,11 @@ class PytangoTestDevice(Device):
         fget="get_current",
         fset="set_current",
         doc="the power supply current",
+        polling_period = 1000  # ms
     )
     
     def get_current(self):
+        self.__current = self.__current + 1
         return self.__current
 
     def set_current(self, current):
