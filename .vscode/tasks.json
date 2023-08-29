@@ -7,6 +7,11 @@
             "label": "local_tangocs",
             "type": "shell",
             "command": "export TANGO_HOST=localhost:10000 && podman-compose up || podman-compose down"
+        },
+        {
+            "label": "itango",
+            "type": "shell",
+            "command": "export TANGO_HOST=localhost:10000 && pipenv run itango3",
         }
     ]
 }
