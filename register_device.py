@@ -26,7 +26,7 @@ dev_info._class = dsr_name[: dsr_name.find("/")]  # Device server: same name!
 dev_info.name = dev_name  # Device instance name
 
 db = tango.Database()
-db.delete_device(dev_name)
+db.delete_device(dev_name)  # Remove existing device if any
 db.add_device(dev_info)
 db.put_device_property(dev_info.name, dev_ptys)
 db.put_class_property(dev_info._class, cls_ptys)
