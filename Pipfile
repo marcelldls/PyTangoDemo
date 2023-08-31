@@ -15,7 +15,6 @@ mypy = "*"
 pytest-mock = "*"
 black = "*"
 
-
 [requires]
 python_version = "3.10"
 
