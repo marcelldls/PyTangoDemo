@@ -1,8 +1,9 @@
 import time
+from tango import DevState
 
 
-def spin():
-    time.sleep(3)
+def spin(self):
+    time.sleep(1)
 
 
 def dummy_measure_func(self):
@@ -25,10 +26,23 @@ commands = {
 }
 
 properties = {
+    "device_prop": {
+        "dtype": str,
+        },
 }
+
+
+def my_init(self):
+    self.set_state(DevState.STANDBY)
+
+
+init_method = {
+    "init_device": my_init,
+    }
 
 dev_config = {
     "attributes": attributes,
     "commands": commands,
     "properties": properties,
+    "init_method": init_method,
 }

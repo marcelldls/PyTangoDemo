@@ -8,7 +8,5 @@
     "device_properties": {
         "device_prop": "42"
     },
-    "class_properties": {
-        "class_prop": "21"
-    }
+    "class_properties": {}
 }
