@@ -9,7 +9,9 @@ Based off:
 - Run the associated Tango Device Server
 - Execute the client
 
-Use the vscode launch configuration `Local TangoCS: Current File` to interact or `export TANGO_HOST=localhost:10000`
+Some ways to interact with a device
+- Use the `itango` task to start an interactive Tango terminal
+- Use the vscode launch configuration `Local TangoCS: Current File` to interact via scripts or `export TANGO_HOST=localhost:10000`
 
 ### Troubleshooting
 Interaction with the database can be validated using the containerised Jive GUI application 
