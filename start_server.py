@@ -39,7 +39,6 @@ if args.nodb:
           "tango://" + host + ":" + port + "/" + dev_name + "#dbase=no")
     optn = ["--nodb", "--dlist", dev_name]
 
-
     if cl_type == "BuildClass":
         file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
         dev_config = getattr(importlib.import_module(file_loc), "dev_config")

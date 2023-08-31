@@ -1,7 +1,6 @@
-from time import time, sleep
-from tango import DevState, AttrQuality, AttrWriteType, DispLevel
-from tango.server import Device, attribute, command, pipe
-from tango.server import class_property, device_property
+from tango import DevState
+from tango.server import Device, attribute
+from tango.server import device_property
 import re
 import socket
 
@@ -80,7 +79,7 @@ class PytangoTempController(Device):
         self.sckt_put("E", new_end)
 
     # Helpers
-    
+
     def sckt_put(self, prefix, msg):
         msg = f"{prefix}{self._suffix}={msg}\r\n"
         self.sckt.send(msg.encode("utf-8"))

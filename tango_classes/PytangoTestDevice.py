@@ -1,5 +1,5 @@
-from time import time, sleep
-from tango import DevState, AttrQuality, AttrWriteType, DispLevel
+from time import sleep
+from tango import DevState, AttrWriteType, DispLevel
 from tango.server import Device, attribute, command, pipe
 from tango.server import class_property, device_property
 
@@ -43,9 +43,9 @@ class PytangoTestDevice(Device):
         fget="get_current",
         fset="set_current",
         doc="the power supply current",
-        polling_period = 1000  # ms (Client calls don't trigger get)
+        polling_period=1000  # ms (Client calls don't trigger get)
     )
-    
+
     def get_current(self):
         self.__current = self.__current + 1
         return self.__current
@@ -74,6 +74,7 @@ class PytangoTestDevice(Device):
                      model='PS2000',
                      version_number=123,
                      ))
+
 
 if __name__ == "__main__":
     PytangoTestDevice.run_server()
