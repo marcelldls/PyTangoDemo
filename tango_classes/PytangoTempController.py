@@ -19,29 +19,70 @@ class PytangoTempController(Device):
     host = device_property(dtype=str)
     port = device_property(dtype=int)
 
+
     suffix = attribute(dtype=str)
 
     @suffix.read
     def suffix(self):
         return self._suffix
 
-    """
+
     enabled = attribute(
                     dtype=bool, 
                     polling_period = 200,
                     )
+
+    @enabled.read
+    def enabled(self):
+
+        msg = f"N{self._suffix}?\r\n"
+        self.sckt.send(msg.encode("utf-8"))
+        msg_read = self.sckt.recv(1024)  # Keeping it simple
+        self._enabled = bool(int(msg_read.decode("utf-8")))
+
+        return self._enabled
+    
+    @enabled.write
+    def enabled(self, new_enabled):
+        msg = f"N{self._suffix}={int(new_enabled)}\r\n"
+        self.sckt.send(msg.encode("utf-8"))
 
 
     start = attribute(
                     dtype=int, 
                     polling_period = 200,
                     )
+    @start.read
+    def enstartd(self):
+
+        msg = f"S{self._suffix}?\r\n"
+        self.sckt.send(msg.encode("utf-8"))
+        msg_read = self.sckt.recv(1024)  # Keeping it simple
+        self._start = int(msg_read.decode("utf-8"))
+
+        return self._start
+    
+    @start.write
+    def start(self, new_start):
+        msg = f"S{self._suffix}={new_start}\r\n"
+        self.sckt.send(msg.encode("utf-8"))
+
 
     current = attribute(
-                    dtype=str, 
-                    polling_period = 200,
+                    dtype=float, 
+                    polling_period = 0,
                     )
-    """
+    
+    @current.read
+    def current(self):
+
+        msg = f"T{self._suffix}?\r\n"
+        self.sckt.send(msg.encode("utf-8"))
+        msg_read = self.sckt.recv(1024)  # Keeping it simple
+        self._start = float(msg_read.decode("utf-8"))
+
+        return self._start
+
 
     end = attribute(
                 dtype=int, 
