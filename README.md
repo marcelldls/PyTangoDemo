@@ -9,7 +9,7 @@ Based off:
 - Run the associated Tango Device Server
 - Execute the client
 
-Can use the vscode launch configuration `Local TangoCS: Current File`
+Use the vscode launch configuration `Local TangoCS: Current File` to interact or `export TANGO_HOST=localhost:10000`
 
 ### Troubleshooting
 Interaction with the database can be validated using the containerised Jive GUI application 
@@ -21,11 +21,12 @@ You may need to run `xhost +local:podman`
 
 ## Types of device classes
 The following device classes are included:
-- A native PyTango device
-- A skeleton device made using Pogo
-- A programatically built device class using PyTango framework has also been implemented (default).
+- A native PyTango test device
+- A skeleton test device made using Pogo
+- A programatically built test device class using PyTango framework has also been implemented.
+- A temperature controller to interact with a simulated device which can be started with the vscode launch configuration `Debug temp controller` (default)
 
 Selection is done by specifying the config file.
 
 ## Open issues
-- test_context (--test argument) seems to be a native PyTango way to execute a no database server but fails to execute a Pogo class (possibly due to python incompatibility 2.7 vs 3.7). Not yet clear why to use this over a --nodb option but I added it.
+- test_context (--test argument) seems to be a native PyTango way to execute a no database server but fails to execute a Pogo class (possibly due to python incompatibility 2 vs 3). Not yet clear why to use this over a --nodb option but I added it.
