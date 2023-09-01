@@ -43,13 +43,9 @@ def my_init(self):
     self._measure_2 = 2.23
 
 
-init_method = {
-    "init_device": my_init,
-    }
-
 dev_config = {
     "attributes": attributes,
     "commands": commands,
     "properties": properties,
-    "init_method": init_method,
+    "init_method": my_init,
 }

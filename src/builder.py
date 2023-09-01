@@ -32,7 +32,7 @@ def device_class_builder(device_type=None,
     if init_method is None:
         class_body["init_method"] = lambda *args: None
     else:
-        class_body["init_method"] = init_method["init_device"]
+        class_body["init_method"] = init_method
     print("Processed device initialisation")
 
     dynamic_class = type(device_type, (server.Device,), class_body)
