@@ -10,8 +10,12 @@ def dummy_measure_1_func(self):
     return 1.23
 
 
-def dummy_measure_2_func(self):
+def dummy_measure_2_read(self):
     return self._measure_2
+
+
+def dummy_measure_2_set(self, new):
+    self._measure_2 = float(new)
 
 
 attributes = {
@@ -20,7 +24,8 @@ attributes = {
         "dtype": float,
         },
     "dummy_measure_2": {
-        "fget": dummy_measure_2_func,
+        "fget": dummy_measure_2_read,
+        "fset": dummy_measure_2_set,
         "dtype": float,
         },
 }
