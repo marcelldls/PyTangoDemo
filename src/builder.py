@@ -18,7 +18,7 @@ def device_class_builder(device_type=None,
 
     for cmnd in commands:
         class_body[cmnd] = server.command(
-            commands[cmnd],
+            **commands[cmnd],
             )
     print("Processed commands")
 

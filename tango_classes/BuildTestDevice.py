@@ -26,7 +26,9 @@ attributes = {
 }
 
 commands = {
-    "spin": spin,
+    "spin": {
+        "f": spin,
+    },
 }
 
 properties = {
