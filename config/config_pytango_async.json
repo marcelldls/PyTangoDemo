@@ -1,0 +1,14 @@
+{
+    "port": "8888",
+    "host": "127.0.0.1",
+    "device_server_name": "PytangoTestDeviceAsync/test", 
+    "device_name": "test/pytangoasync_device/0",
+    "device_class_path": "tango_classes/PytangoTestDeviceAsync.py",
+    "device_class_type": "PyTangoClass",
+    "device_properties": {
+        "device_prop": "42"
+    },
+    "class_properties": {
+        "class_prop": "21"
+    }
+}
