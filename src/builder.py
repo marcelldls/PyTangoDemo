@@ -5,7 +5,8 @@ def device_class_builder(device_type,
                          attributes={},
                          commands={},
                          properties={},
-                         init_method=None):
+                         init_method=None,
+                         helpers={}):
 
     class_body = {}
     print("Dynamically building device class...")
@@ -34,6 +35,10 @@ def device_class_builder(device_type,
     else:
         class_body["init_method"] = init_method
     print("Processed device initialisation")
+
+    for hlp in helpers:
+        class_body[hlp] = helpers[hlp]
+    print("Processed helper functions")
 
     dynamic_class = type(device_type, (server.Device,), class_body)
     print("Created device class:", dynamic_class.__name__)
