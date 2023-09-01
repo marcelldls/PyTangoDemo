@@ -18,44 +18,39 @@ parser.add_argument(
     "--test", help="Run test device server (no database)", action="store_true"
 )
 args = parser.parse_args()
+cnfg = config_parse(args.deviceConfig)
 
-# Process config file
-with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
-    config = json.load(config_file)
-    host = config["host"]
-    port = config["port"]
-    dsr_name = config["device_server_name"]
-    dev_name = config["device_name"]
-    cl_path = config["device_class_path"]
-    cl_type = config["device_class_type"]
-
-srvr_instance = [dsr_name[dsr_name.rfind("/")+1:]]
-srvr_addr = ["--host", host, "--port", port]
-
+srvr_instance = [cnfg.dsr_name[cnfg.dsr_name.rfind("/")+1:]]
+srvr_addr = ["--host", cnfg.host, "--port", cnfg.port]
 
 if args.nodb:
     print("Starting device:",
-          "tango://" + host + ":" + port + "/" + dev_name + "#dbase=no")
-    optn = ["--nodb", "--dlist", dev_name]
+          "tango://" + cnfg.host + ":" + cnfg.port + "/" + cnfg.dev_name + "#dbase=no")
+    optn = ["--nodb", "--dlist", cnfg.dev_name]
 
-    if cl_type == "BuildClass":
-        file_loc = cl_path[:cl_path.rfind(".")].replace("/", ".")
+    if cnfg.cl_type == "BuildClass":
+        file_loc = cnfg.cl_path[:cnfg.cl_path.rfind(".")].replace("/", ".")
         dev_config = getattr(importlib.import_module(file_loc), "dev_config")
-        class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
+        class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: cnfg.cl_path.rfind(".")]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
         device_class.run_server(srvr_instance + optn + srvr_addr)
 
     else:
-        cmnd = ["python", cl_path]
+        cmnd = ["python", cnfg.cl_path]
         os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
 
 elif args.test:
-    class_name = cl_path[cl_path.find("/") + 1: cl_path.rfind(".")]
-    python_path = [cl_path[: cl_path.find("/")] + 2 * ("." + class_name)]
+    class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: cnfg.cl_path.rfind(".")]
+    python_path = [cnfg.cl_path[: cnfg.cl_path.find("/")] + 2 * ("." + class_name)]
 
-    if cl_type == "BuildClass":
-        raise NotImplementedError("Dynamically built classes not yet supported here")
+    if cnfg.cl_type == "BuildClass":
+        msg = "Dynamically built classes not yet supported here"
+        raise NotImplementedError(msg)
+
+    if cnfg.cl_type == "PogoClass":
+        msg = "Pogo devices not yet supported (Python 2 dependancy)"
+        raise NotImplementedError(msg)
 
     else:
         cmnd = ["python", "-m", "tango.test_context"]
