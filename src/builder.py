@@ -12,8 +12,7 @@ def device_class_builder(device_type=None,
 
     for attr in attributes:
         class_body[attr] = server.attribute(
-            attributes[attr]["method"],
-            dtype=attributes[attr]["dtype"],
+            **attributes[attr]
             )
     print("Processed attributes")
 
@@ -25,9 +24,9 @@ def device_class_builder(device_type=None,
 
     for pty in properties:
         class_body[pty] = server.device_property(
-            dtype=properties[pty]["dtype"],
+            **properties[pty],
             )
-    print("Skipped properties")
+    print("Processed properties")
 
     class_body["init_device"] = init_device
     if init_method is None:

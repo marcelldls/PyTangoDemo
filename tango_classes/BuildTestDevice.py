@@ -6,17 +6,21 @@ def spin(self):
     time.sleep(1)
 
 
-def dummy_measure_func(self):
+def dummy_measure_1_func(self):
     return 1.23
+
+
+def dummy_measure_2_func(self):
+    return self._measure_2
 
 
 attributes = {
     "dummy_measure_1": {
-        "method": dummy_measure_func,
+        "fget": dummy_measure_1_func,
         "dtype": float,
         },
     "dummy_measure_2": {
-        "method": dummy_measure_func,
+        "fget": dummy_measure_2_func,
         "dtype": float,
         },
 }
@@ -34,6 +38,7 @@ properties = {
 
 def my_init(self):
     self.set_state(DevState.STANDBY)
+    self._measure_2 = 2.23
 
 
 init_method = {
