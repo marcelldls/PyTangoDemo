@@ -46,7 +46,7 @@ class PytangoTempController(Device):
     )
 
     @start.read
-    def enstartd(self):
+    def start(self):
         self._start = int(self.sckt_get("S"))
         return self._start
 
