@@ -1,7 +1,7 @@
 """Command line Tango Device Client"""
 import argparse
-import json
 import tango
+from src.utils import config_parse
 
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Run a Tango Client")
@@ -25,39 +25,31 @@ parser.add_argument(
     action="store_true"
 )
 args = parser.parse_args()
+cnfg = config_parse(args.deviceConfig)
 
-# Process config file
-with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
-    config = json.load(config_file)
-    host = config["host"]
-    port = config["port"]
-    dsr_name = config["device_server_name"]
-    dev_name = config["device_name"]
-    cl_path = config["device_class_path"]
-    cl_type = config["device_class_type"]
-
-srvr_addr = "tango://"+host+":"+port+"/"
+srvr_addr = "tango://"+cnfg.host+":"+cnfg.port+"/"
 
 if args.nodb:
-    dev_name = srvr_addr + dev_name + "#dbase=no"
+    cnfg.dev_name = srvr_addr + cnfg.dev_name + "#dbase=no"
 
 elif args.test:
-    class_name = cl_path[cl_path.find("/") + 1: -3]
-    dev_name = "test/nodb/" + class_name.lower()
-    dev_name = srvr_addr + dev_name + "#dbase=no"
+    class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: -3]
+    cnfg.dev_name = "test/nodb/" + class_name.lower()
+    cnfg.dev_name = srvr_addr + cnfg.dev_name + "#dbase=no"
 
 # Use PyTango
 print("Tango version:", tango.__version__)
 print("TANGO Database address:", tango.ApiUtil.get_env_var("TANGO_HOST"))
 
 # Do client things
-print("Connect to:", dev_name)
-test_device = tango.DeviceProxy(dev_name)
+print("Connect to:", cnfg.dev_name)
+test_device = tango.DeviceProxy(cnfg.dev_name)
 print("Ping device:", test_device.ping(), "us")
 print("The device state is:", test_device.state())
 attributes = test_device.get_attribute_list()
 print("Defined attributes:", attributes)
-print("Attribute values:", [test_device.read_attribute(att).value for att in attributes])
+print("Attribute values:",
+      [test_device.read_attribute(att).value for att in attributes])
 print("Defined commands:", test_device.get_command_list())
 
 if args.nodb or args.test:

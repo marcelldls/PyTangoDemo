@@ -1,8 +1,8 @@
 """Register a device on a Tango database by command line"""
 
 import argparse
-import json
 import tango
+from src.utils import config_parse
 
 parser = argparse.ArgumentParser(description="Register a Tango Device")
 parser.add_argument(
@@ -10,26 +10,18 @@ parser.add_argument(
     help="Specify a device configuration",
 )
 args = parser.parse_args()
-
-# Process config file
-with open(args.deviceConfig, "r", encoding="utf-8") as config_file:
-    config = json.load(config_file)
-    cl_path = config["device_class_path"]
-    dsr_name = config["device_server_name"]
-    dev_name = config["device_name"]
-    dev_ptys = config["device_properties"]
-    cls_ptys = config["class_properties"]
+cnfg = config_parse(args.deviceConfig)
 
 dev_info = tango.DbDevInfo()
-dev_info.server = dsr_name  # Device server instance name (Device factory)
-dev_info._class = dsr_name[: dsr_name.find("/")]  # Device server: same name!
-dev_info.name = dev_name  # Device instance name
+dev_info.server = cnfg.dsr_name  # Device server instance name (Device factory)
+dev_info._class = cnfg.dsr_name[: cnfg.dsr_name.find("/")]  # Device server: same name!
+dev_info.name = cnfg.dev_name  # Device instance name
 
 db = tango.Database()
-db.delete_device(dev_name)  # Remove existing device if any
+db.delete_device(cnfg.dev_name)  # Remove existing device if any
 db.add_device(dev_info)
-db.put_device_property(dev_info.name, dev_ptys)
-db.put_class_property(dev_info._class, cls_ptys)
+db.put_device_property(dev_info.name, cnfg.dev_ptys)
+db.put_class_property(dev_info._class, cnfg.cls_ptys)
 
 read = db.get_device_info(dev_info.name)
 
