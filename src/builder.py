@@ -1,10 +1,10 @@
 from tango import server, DevState
 
 
-def device_class_builder(device_type=None,
-                         attributes=None,
-                         commands=None,
-                         properties=None,
+def device_class_builder(device_type,
+                         attributes={},
+                         commands={},
+                         properties={},
                          init_method=None):
 
     class_body = {}
