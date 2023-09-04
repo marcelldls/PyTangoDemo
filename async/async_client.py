@@ -29,7 +29,7 @@ def do_work(task_man):
 
 async def main():
 
-    # run the background task
+    # queue a background task
     asyncio.create_task(async_read())
 
     task_man = accumulator(difficulty=0.5)
