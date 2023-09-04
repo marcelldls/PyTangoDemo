@@ -5,7 +5,7 @@ from tango import DevState, GreenMode
 from tango.server import Device, command, attribute
 
 
-class PytangoTestDeviceAsync(Device):
+class AsyncioDevice(Device):
     green_mode = GreenMode.Asyncio
 
     async def init_device(self):
@@ -35,4 +35,4 @@ class PytangoTestDeviceAsync(Device):
 
 
 if __name__ == "__main__":
-    PytangoTestDeviceAsync.run_server()
+    AsyncioDevice.run_server()
