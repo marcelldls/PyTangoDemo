@@ -63,7 +63,7 @@ else:
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         device_class = getattr(importlib.import_module(cls_dt_pth), class_name)
         server_args = [class_name] + srvr_instance + optn + srvr_addr
-        run((device_class, device_class), server_args)
+        run((device_class,), server_args)
 
     elif cnfg.cl_type == "PogoClass":
         cmnd = ["python", cnfg.cl_path]
