@@ -41,12 +41,12 @@ if args.test:
 else:
     if args.nodb:
         print("Starting device:",
-            f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dev_name}#dbase=no")
+              f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dev_name}#dbase=no")
         optn = ["--nodb", "--dlist", cnfg.dev_name]
 
     else:
         print("Starting device:",
-            f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dsr_name}/{cnfg.dev_name}")
+              f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dsr_name}/{cnfg.dev_name}")
         optn = []
 
     if cnfg.cl_type == "BuildClass":
