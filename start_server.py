@@ -25,33 +25,13 @@ cnfg = config_parse(args.deviceConfig)
 srvr_instance = re.findall("/(.*)", cnfg.dsr_name)
 srvr_addr = ["--host", cnfg.host, "--port", str(cnfg.port)]
 
-if args.nodb:
-    print("Starting device:",
-          f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dev_name}#dbase=no")
-    optn = ["--nodb", "--dlist", cnfg.dev_name]
-
-    if cnfg.cl_type == "BuildClass":
-        file_loc = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
-        dev_config = getattr(importlib.import_module(file_loc), "dev_config")
-        class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
-        dev_config['device_type'] = class_name
-        device_class = device_class_builder(**dev_config)
-        run((device_class,), [class_name]+srvr_instance+optn+srvr_addr)
-
-    else:
-        cmnd = ["python", cnfg.cl_path]
-        os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
-
-elif args.test:
+if args.test:
     class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
     python_path = [re.findall("(.*)/", cnfg.cl_path)[0] + 2*f".{class_name}"]
+    optn = []
 
-    if cnfg.cl_type == "BuildClass":
-        msg = "Dynamically built classes not yet supported here"
-        raise NotImplementedError(msg)
-
-    if cnfg.cl_type == "PogoClass":
-        msg = "Pogo devices not yet supported (Python 2 dependancy)"
+    if cnfg.cl_type in ["BuildClass", "PogoClass"]:
+        msg = f"{cnfg.cl_type} not yet supported for 'test'"
         raise NotImplementedError(msg)
 
     else:
@@ -59,9 +39,15 @@ elif args.test:
         os.system(" ".join(cmnd + python_path + srvr_addr))
 
 else:
-    # Start device server: Python <Server_file>.py <server instance name>
-    print("Starting device:",
-          f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dsr_name}/{cnfg.dev_name}")
+    if args.nodb:
+        print("Starting device:",
+            f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dev_name}#dbase=no")
+        optn = ["--nodb", "--dlist", cnfg.dev_name]
+
+    else:
+        print("Starting device:",
+            f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dsr_name}/{cnfg.dev_name}")
+        optn = []
 
     if cnfg.cl_type == "BuildClass":
         file_loc = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
@@ -69,8 +55,18 @@ else:
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        run((device_class,), [class_name]+srvr_instance+srvr_addr)
+        run((device_class,), [class_name] + srvr_instance + optn + srvr_addr)
+
+    elif cnfg.cl_type == "PyTangoClass":
+        cls_dt_pth = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
+        class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
+        device_class = getattr(importlib.import_module(cls_dt_pth), class_name)
+        run((device_class,), [class_name] + srvr_instance + optn + srvr_addr)
+
+    elif cnfg.cl_type == "PogoClass":
+        cmnd = ["python", cnfg.cl_path]
+        os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
 
     else:
-        cmnd = ["python", cnfg.cl_path]
-        os.system(" ".join(cmnd + srvr_instance + srvr_addr))
+        msg = "Unrecognised Tango device implementation"
+        raise NotImplementedError(msg)
