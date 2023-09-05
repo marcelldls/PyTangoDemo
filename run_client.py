@@ -27,15 +27,15 @@ parser.add_argument(
 args = parser.parse_args()
 cnfg = config_parse(args.deviceConfig)
 
-srvr_addr = "tango://"+cnfg.host+":"+str(cnfg.port)+"/"
+srvr_addr = f"tango://{cnfg.host}:{cnfg.port}/"
 
 if args.nodb:
-    cnfg.dev_name = srvr_addr + cnfg.dev_name + "#dbase=no"
+    cnfg.dev_name = f"{srvr_addr}{cnfg.dev_name}#dbase=no"
 
 elif args.test:
     class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: -3]
-    cnfg.dev_name = "test/nodb/" + class_name.lower()
-    cnfg.dev_name = srvr_addr + cnfg.dev_name + "#dbase=no"
+    cnfg.dev_name = f"test/nodb/{class_name.lower()}"
+    cnfg.dev_name = f"{srvr_addr}{cnfg.dev_name}#dbase=no"
 
 # Use PyTango
 print("Tango version:", tango.__version__)
