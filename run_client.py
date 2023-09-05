@@ -21,7 +21,7 @@ parser.add_argument(
     action="store_true"
 )
 parser.add_argument(
-    "--add",
+    "--complex",
     help="Additional complexity that needs implementation to work",
     action="store_true"
 )
@@ -60,7 +60,7 @@ else:
     test_device.get_property_list("*")
 
 # Do more client things
-if args.add:
+if args.complex:
     print("")
     print("Enable additional complexity - Do something crazy")
     print("Read:", test_device.dummy_measure_1)
