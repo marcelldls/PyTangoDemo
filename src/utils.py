@@ -9,8 +9,8 @@ class config_parse():
             self.cl_type = config["device_class_type"]
             self.dsr_name = config["device_server_name"]
             self.dev_name = config["device_name"]
-            self.host = if_exists(config, "host", "127.0.0.1")
-            self.port = if_exists(config, "port", 8888)
+            self.host = if_exists(config, "device_server_host", "127.0.0.1")
+            self.port = if_exists(config, "device_server_port", 8888)
             self.dev_ptys = if_exists(config, "device_properties", {})
             self.cls_ptys = if_exists(config, "class_properties", {})
 

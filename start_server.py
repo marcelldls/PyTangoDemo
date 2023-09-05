@@ -55,17 +55,20 @@ else:
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        run((device_class,), [class_name] + srvr_instance + optn + srvr_addr)
+        server_args = [class_name] + srvr_instance + optn + srvr_addr
+        run((device_class,), server_args)
 
     elif cnfg.cl_type == "PyTangoClass":
         cls_dt_pth = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         device_class = getattr(importlib.import_module(cls_dt_pth), class_name)
-        run((device_class,), [class_name] + srvr_instance + optn + srvr_addr)
+        server_args = [class_name] + srvr_instance + optn + srvr_addr
+        run((device_class, device_class), server_args)
 
     elif cnfg.cl_type == "PogoClass":
         cmnd = ["python", cnfg.cl_path]
-        os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
+        server_args = srvr_instance + optn + srvr_addr
+        os.system(" ".join(cmnd + server_args))
 
     else:
         msg = "Unrecognised Tango device implementation"
