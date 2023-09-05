@@ -4,6 +4,7 @@ import os
 import importlib
 from src.builder import device_class_builder
 from src.utils import config_parse
+from tango.server import run
 import re
 
 # Process command line arguments
@@ -35,7 +36,7 @@ if args.nodb:
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        device_class.run_server(srvr_instance + optn + srvr_addr)
+        run((device_class,), [class_name]+srvr_instance+optn+srvr_addr)
 
     else:
         cmnd = ["python", cnfg.cl_path]
@@ -68,7 +69,7 @@ else:
         class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
-        device_class.run_server(srvr_instance + srvr_addr)
+        run((device_class,), [class_name]+srvr_instance+srvr_addr)
 
     else:
         cmnd = ["python", cnfg.cl_path]
