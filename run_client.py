@@ -27,7 +27,7 @@ parser.add_argument(
 args = parser.parse_args()
 cnfg = config_parse(args.deviceConfig)
 
-srvr_addr = "tango://"+cnfg.host+":"+cnfg.port+"/"
+srvr_addr = "tango://"+cnfg.host+":"+str(cnfg.port)+"/"
 
 if args.nodb:
     cnfg.dev_name = srvr_addr + cnfg.dev_name + "#dbase=no"

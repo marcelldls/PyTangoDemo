@@ -21,11 +21,11 @@ args = parser.parse_args()
 cnfg = config_parse(args.deviceConfig)
 
 srvr_instance = [cnfg.dsr_name[cnfg.dsr_name.rfind("/")+1:]]
-srvr_addr = ["--host", cnfg.host, "--port", cnfg.port]
+srvr_addr = ["--host", cnfg.host, "--port", str(cnfg.port)]
 
 if args.nodb:
     print("Starting device:",
-          "tango://" + cnfg.host + ":" + cnfg.port + "/" + cnfg.dev_name + "#dbase=no")
+          "tango://" + cnfg.host + ":" + str(cnfg.port) + "/" + cnfg.dev_name + "#dbase=no")
     optn = ["--nodb", "--dlist", cnfg.dev_name]
 
     if cnfg.cl_type == "BuildClass":
@@ -59,7 +59,7 @@ elif args.test:
 else:
     # Start device server: Python <Server_file>.py <server instance name>
     print("Starting device:",
-          "tango://" + cnfg.host + ":" + cnfg.port + "/" + cnfg.dsr_name + "/" + cnfg.dev_name)
+          "tango://" + cnfg.host + ":" + str(cnfg.port) + "/" + cnfg.dsr_name + "/" + cnfg.dev_name)
 
     if cnfg.cl_type == "BuildClass":
         file_loc = cnfg.cl_path[:cnfg.cl_path.rfind(".")].replace("/", ".")

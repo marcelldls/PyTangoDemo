@@ -1,10 +1,6 @@
 {
-    "port": "8888",
-    "host": "127.0.0.1",
     "device_server_name": "PytangoTestDevice/test", 
     "device_name": "test/pytango_device/0",
     "device_class_path": "tango_classes/PytangoTestDevice.py",
-    "device_class_type": "PyTangoClass",
-    "device_properties": {},
-    "class_properties": {}
+    "device_class_type": "PyTangoClass"
 }
