@@ -2,6 +2,7 @@
 import argparse
 import tango
 from src.utils import config_parse
+import re
 
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Run a Tango Client")
@@ -33,7 +34,7 @@ if args.nodb:
     cnfg.dev_name = f"{srvr_addr}{cnfg.dev_name}#dbase=no"
 
 elif args.test:
-    class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: -3]
+    class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
     cnfg.dev_name = f"test/nodb/{class_name.lower()}"
     cnfg.dev_name = f"{srvr_addr}{cnfg.dev_name}#dbase=no"
 

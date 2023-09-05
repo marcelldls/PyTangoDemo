@@ -3,6 +3,7 @@
 import argparse
 import tango
 from src.utils import config_parse
+import re
 
 parser = argparse.ArgumentParser(description="Register a Tango Device")
 parser.add_argument(
@@ -14,7 +15,7 @@ cnfg = config_parse(args.deviceConfig)
 
 dev_info = tango.DbDevInfo()
 dev_info.server = cnfg.dsr_name  # Device server instance name (Device factory)
-dev_info._class = cnfg.dsr_name[: cnfg.dsr_name.find("/")]  # Device server: same name!
+dev_info._class = re.findall("(.*)/", cnfg.dsr_name)[0]  # Device server: same name!
 dev_info.name = cnfg.dev_name  # Device instance name
 
 db = tango.Database()

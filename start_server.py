@@ -4,6 +4,7 @@ import os
 import importlib
 from src.builder import device_class_builder
 from src.utils import config_parse
+import re
 
 # Process command line arguments
 parser = argparse.ArgumentParser(description="Starts a Tango Device Server")
@@ -20,7 +21,7 @@ parser.add_argument(
 args = parser.parse_args()
 cnfg = config_parse(args.deviceConfig)
 
-srvr_instance = [cnfg.dsr_name[cnfg.dsr_name.rfind("/")+1:]]
+srvr_instance = re.findall("/(.*)", cnfg.dsr_name)
 srvr_addr = ["--host", cnfg.host, "--port", str(cnfg.port)]
 
 if args.nodb:
@@ -29,9 +30,9 @@ if args.nodb:
     optn = ["--nodb", "--dlist", cnfg.dev_name]
 
     if cnfg.cl_type == "BuildClass":
-        file_loc = cnfg.cl_path[:cnfg.cl_path.rfind(".")].replace("/", ".")
+        file_loc = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
         dev_config = getattr(importlib.import_module(file_loc), "dev_config")
-        class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: cnfg.cl_path.rfind(".")]
+        class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
         device_class.run_server(srvr_instance + optn + srvr_addr)
@@ -41,8 +42,8 @@ if args.nodb:
         os.system(" ".join(cmnd + srvr_instance + optn + srvr_addr))
 
 elif args.test:
-    class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: cnfg.cl_path.rfind(".")]
-    python_path = [cnfg.cl_path[: cnfg.cl_path.find("/")] + 2 * ("." + class_name)]
+    class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
+    python_path = [re.findall("(.*)/", cnfg.cl_path)[0] + 2*f".{class_name}"]
 
     if cnfg.cl_type == "BuildClass":
         msg = "Dynamically built classes not yet supported here"
@@ -62,9 +63,9 @@ else:
           f"tango://{cnfg.host}:{cnfg.port}/{cnfg.dsr_name}/{cnfg.dev_name}")
 
     if cnfg.cl_type == "BuildClass":
-        file_loc = cnfg.cl_path[:cnfg.cl_path.rfind(".")].replace("/", ".")
+        file_loc = re.findall("(.*).py", cnfg.cl_path)[0].replace("/", ".")
         dev_config = getattr(importlib.import_module(file_loc), "dev_config")
-        class_name = cnfg.cl_path[cnfg.cl_path.find("/") + 1: cnfg.cl_path.rfind(".")]
+        class_name = re.findall("/(.*).py", cnfg.cl_path)[0]
         dev_config['device_type'] = class_name
         device_class = device_class_builder(**dev_config)
         device_class.run_server(srvr_instance + srvr_addr)
