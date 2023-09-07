@@ -25,8 +25,6 @@ db.put_device_property(dev_info.name, cnfg.dev_ptys)
 db.put_class_property(dev_info._class, cnfg.cls_ptys)
 
 read = db.get_device_info(dev_info.name)
-
-print("Registered Device:", dev_info.name, "- On device server:", dev_info.server)
-print(read)
+print("Registered - Device:", read.name, "of Class:", read.class_name, "on Device server:", read.ds_full_name)
 print("Device properties", db.get_device_property_list(dev_info.name, '*'))
 print("Class properties", db.get_class_property_list(dev_info._class))
