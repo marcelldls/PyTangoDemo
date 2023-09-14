@@ -19,7 +19,10 @@ Interaction with the database can be validated using the containerised Jive GUI 
 podman pull andygotz/tango-jive:7.19
 podman run -ti --rm -e DISPLAY=$DISPLAY -e TANGO_HOST=localhost:10000 -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt label=type:container_runtime_t --net=host andygotz/tango-jive:7.19
 ```
-You may need to run `xhost +local:podman`
+You may need to run `xhost +local:podman` to get a window
+
+Device interaction via the ATKPanel GUI can then be done by right clicking on the device in Jive and selecting `monitor device` 
+
 
 ## Types of device classes
 The following device classes are included:
